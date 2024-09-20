@@ -210,19 +210,20 @@ def docker_host(docker_ip: str, am_i_running_inside_container: bool) -> str:
      there is another alternative that is at the same time simpler but hackier.
     It is to allow the traffic from the container with tests to go to the host and access the exposed dependencies ports
      from there. For that you have to access the host using the magic hostname "host.docker.internal" which is
-     associated with the default docker's bridge network where your container with tests is in by default.
-    This is really a very badly documented thing and there are not a lot of things you can find about it in the official
-     docker documentation:
+     associated with the internal IP address used by the host.
+    This is not a really well documented thing and there are not a lot of things you can find about it in the official
+     docker documentation, the only entry relates to the docker desktop for some reason:
 
-        https://docs.docker.com/engine/network/drivers/bridge/#use-the-default-bridge-network
-        https://docs.docker.com/reference/cli/dockerd/#configure-host-gateway-ip
+        https://docs.docker.com/desktop/networking/#i-want-to-connect-from-a-container-to-a-service-on-the-host
 
-    Also, you will have to run the `docker run` command in your host with
+    For that you will have to run the `docker run` command in your host with
 
         docker run -v /var/run/docker.sock:/var/run/docker.sock --add-host=host.docker.internal:host-gateway
 
-     to explicitly allow the access from the container to the host. It is not always required, and depends on the OS of
-     the host that is running the dockerd.
+     to explicitly allow the access from the container to the host by mapping the host (`host.docker.internal`) to the
+     default bridge gateway (`host-gateway`). It is not always required, and depends on the OS of the host:
+
+        https://docs.docker.com/reference/cli/dockerd/#configure-host-gateway-ip
     """
     if am_i_running_inside_container:
         return "host.docker.internal"
