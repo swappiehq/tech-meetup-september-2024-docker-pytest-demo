@@ -126,7 +126,7 @@ def docker_compose_file(pytestconfig: pytest.Config) -> pathlib.Path:
 #####
 
 
-async def wait_until_responsive(check: Callable[[], Awaitable[bool]], timeout: float, pause: float) -> None:
+async def __wait_until_responsive(check: Callable[[], Awaitable[bool]], timeout: float, pause: float) -> None:
     """
     Wait until a service is responsive.
     Use this function instead of `docker_services.wait_until_responsive` to support coroutines.
@@ -160,7 +160,7 @@ async def __get_redis_like_service_uri(url: str) -> str:
         except:  # noqa
             return False
 
-    await wait_until_responsive(timeout=60, pause=0.1, check=is_alive)
+    await __wait_until_responsive(timeout=60, pause=0.1, check=is_alive)
     return url
 
 
