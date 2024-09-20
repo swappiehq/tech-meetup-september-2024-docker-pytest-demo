@@ -99,7 +99,7 @@ def docker_services(
 
 #####
 #
-#  PART 2. Make sure are capable to use the various docker compose files.
+#  PART 2. Make sure you are can use various docker compose files.
 #          You can have multiple docker compose files and define these in your nested `conftest.py` files using the
 #          separate fixtures.
 #
@@ -118,8 +118,8 @@ def docker_compose_file(pytestconfig: pytest.Config) -> pathlib.Path:
 
 #####
 #
-#  PART 3. Make sure you can use asyncio-compatible code, because the original codebase does not provide
-#          the ready to use utilities.
+#  PART 3. Make sure you can use asyncio-compatible code, because the original codebase does not provide the ready to
+#          use utilities.
 #          This is not a rocket science but for some reason the original package does not offer such a utility.
 #          Feel free to contribute and add it there :)
 #
