@@ -8,20 +8,13 @@ dependencies in a convenient pytest-style way using the fixtures.
 
 #### How to use it
 
-There is a single folder named test and a simple `requirement.txt` file. Just install the requirements from it
+Just install the requirements and run the tests
 
 ```shell
-pip install -r requirements.txt
+pip install -r requirements.txt && pytest
 ```
 
-and then
-run the
-
-```shell
-pytest
-```
-
-or build the docker image and run the tests there
+or build and run it inside the container
 
 ```shell
 docker run -it -v /var/run/docker.sock:/var/run/docker.sock --add-host=host.docker.internal:host-gateway --entrypoint pytest $(docker build -q .)
