@@ -1,18 +1,8 @@
 attrs==24.2.0
-    # via pytest-docker
 iniconfig==2.0.0
-    # via pytest
 packaging==24.1
-    # via pytest
 pluggy==1.5.0
-    # via pytest
 pytest==8.3.3
-    # via
-    #   pytest-asyncio
-    #   pytest-docker
 pytest-asyncio==0.24.0
-    # via -r requirements.in
 pytest-docker==3.1.1
-    # via -r requirements.in
 redis==4.6.0
-    # via -r requirements.in
