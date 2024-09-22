@@ -174,8 +174,11 @@ async def __get_redis_like_service_uri(url: str) -> str:
 
 @pytest.fixture(scope="session")
 def am_i_running_inside_container() -> bool:
-    # You can build some checks here based on the env variables, for example.
-    return False
+    """
+    You can build some checks here based on the env variables, you can check control groups, there are many techniques.
+    Here for the simplicity of the demo we will check just if we have the .dockerenv file in the root
+    """
+    return pathlib.Path('/.dockerenv').exists()
 
 
 @pytest.fixture(scope="session")
@@ -237,12 +240,12 @@ def docker_host(docker_ip: str, am_i_running_inside_container: bool) -> str:
 # if you have defined the range of ports
 
 @pytest.fixture(scope="session")
-async def redis_uri(docker_ip: str, docker_services: Services) -> str:
+async def redis_uri(docker_host: str, docker_services: Services) -> str:
     port = docker_services.port_for("redis", 6379)
-    return await __get_redis_like_service_uri(f"redis://{docker_ip}:{port}")
+    return await __get_redis_like_service_uri(f"redis://{docker_host}:{port}")
 
 
 @pytest.fixture(scope="session")
-async def keydb_uri(docker_ip: str, docker_services: Services) -> str:
+async def keydb_uri(docker_host: str, docker_services: Services) -> str:
     port = docker_services.port_for("keydb", 6379)
-    return await __get_redis_like_service_uri(f"redis://{docker_ip}:{port}")
+    return await __get_redis_like_service_uri(f"redis://{docker_host}:{port}")

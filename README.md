@@ -18,5 +18,11 @@ and then
 run the
 
 ```shell
-pytest .
+pytest
+```
+
+or build the docker image and run the tests there
+
+```shell
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock --add-host=host.docker.internal:host-gateway --entrypoint pytest $(docker build -q .)
 ```
